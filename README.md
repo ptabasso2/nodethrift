@@ -215,13 +215,16 @@ After having run the client several times and after 20/30 seconds, we can check 
 
 </br>
 
-What we actually see above is our two services producing spans that are stitched together. That is the result of the context being propagated from the client to the server. The yellow spans are those of the client and the context of the lower spans are being carried out through the rpc calls and are retried on the server end. The spans generated on the server side then becoming child spans.
+What we actually see above is our two services producing spans that are stitched together. That is the result of the context being propagated from the client to the server. 
 
-This process implies changing the signature of the of the original methods so that for each method invocation we add an argument that contains the "carrier" that contains the span context to be accessed.
+The yellow spans are those of the client and the context of the lower spans are being carried out through the rpc calls and are retrieved on the server end. The spans generated on the server side then becoming child spans.
+
+This process implies changing the signature of the of the original methods so that for each method invocation we add an argument that contains the "carrier" that contains the span context to be accessed. 
+
+This means that the IDL (.thrift files) and the code has to be adapted accordingly.
 
 
-
-Here is the method before the change 
+Here is the method ***before*** the change 
 
 ````javascript
 
@@ -234,7 +237,7 @@ Here is the method before the change
 ````
 
 
-Here is the method after the change
+Here is the method ***after*** the change
 
 ````javascript
   const structCarrier = {};
@@ -251,6 +254,31 @@ Here is the method after the change
     structSpan.finish();
     span.finish();
   });
+````
+
+In the latter code snippet, you can see that we've added the carrier that contains the current span context that will be retrieved on the server side as shown in the below example for the `getStruct()` method
+
+In this case the context is extracted first to retrieve the context associated to the lower level span on the client side.
+Once accessed we create/start a new span that will be marked as a child span (`childOf`) and tie the rest of the activity we would like to track to it and finish it.
+
+````javascript
+  getStruct: function(key, headers, result) {
+    console.log("getStruct(", key, ")");
+    const parentSpanContext = tracer.extract(opentracing.FORMAT_HTTP_HEADERS, headers);
+    const span = tracer.startSpan('getStruct', { childOf: parentSpanContext });
+
+    result(null, data[key]);
+    span.finish();
+  }
+````
+
+This was the code before the changes were applied
+
+````javascript
+  getStruct: function(key, result) {
+    console.log("getStruct(", key, ")");
+    result(null, data[key]);
+  }
 ````
 
 

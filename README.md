@@ -48,9 +48,9 @@ The original code used in this tutorial is based on the official Apache code exa
 
 
 <pre style="font-size: 12px">
-[root@pt-instance-6:~/]$ git clone https://github.com/ptabasso2/nodethrift
-[root@pt-instance-6:~/]$ cd nodethrift
-[root@pt-instance-6:~/nodethrift]$ 
+[root@pt-instance-2:~/]$ git clone https://github.com/ptabasso2/nodethrift
+[root@pt-instance-2:~/]$ cd nodethrift
+[root@pt-instance-2:~/nodethrift]$ 
 </pre>
 
 
@@ -134,11 +134,15 @@ Status: Downloaded newer image for gcr.io/datadoghq/agent:latest-jmx
 ````
 
 
-## Configuring <a name="env"></a> the application the application environment.
+## Configuring <a name="env"></a> the application environment.
 
 In order to instrument our services, we will also need to use the node.js tracing library (`dd-trace-js`). 
+
+For more details you may want to check the following repository [dd-trace-js](https://github.com/DataDog/dd-trace-js)
  
-To install the node.js tracing library, we will add it by using npm `npm install dd-trace`. The opentracing api will also be used together with `dd-trace` therefore the corresponding package (`opentracing`) will need to be added as well. Lastly, we will add the `thrift` package as this will be used to handle the communication operations between the client and the server. 
+To install the node.js tracing library, we will add it by using npm `npm install dd-trace`. The opentracing api will also be used together with `dd-trace` therefore the corresponding package (`opentracing`) will need to be added as well. 
+
+Lastly, we will add the `thrift` package as this will be used to handle the communication operations between the client and the server. 
 
 
 ## Building, running and testing <a name="local"></a> the application locally.
@@ -147,7 +151,7 @@ To install the node.js tracing library, we will add it by using npm `npm install
 
 These steps assume that you have a `node.js`, `npm` and `thrift` installed and configured for your environment. This tutorial has been tested with node `v17.9.0`, npm `8.5.5` and thrift `0.18.1`.
 
-The build step essentially consists of running the following command that calls out the thrift compiler. This step is optional as this repository already has them, therefore you can simply reuse them and run the application. 
+The build step essentially consists of running the following commands that call out the thrift compiler. This step is optional as this repository already has them, therefore you can simply reuse them and run the application. 
 
 ````shell
 [root@pt-instance-2:~/nodethrift]$ thrift -r --gen js:node tutorialtracing.thrift

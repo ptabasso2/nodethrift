@@ -1,6 +1,7 @@
-![GitHub](https://img.shields.io/github/license/ptabasso2/springblog?style=plastic)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/ptabasso2/springblog)
-![GitHub last commit](https://img.shields.io/github/last-commit/ptabasso2/springblog)
+![GitHub](https://img.shields.io/github/license/ptabasso2/nodethrift?style=plastic)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ptabasso2/nodethrift)
+![GitHub last commit](https://img.shields.io/github/last-commit/ptabasso2/nodethrift)
+
 
 # Custom tracing of a node.js app based on thrift and using the Datadog tracing library
 
@@ -28,7 +29,7 @@ The original code used in this tutorial is based on the official Apache code exa
 
 
 <p align="left">
-  <img src="img/nodethrif1.png" width="850" />
+  <img src="img/nodethrift1.png" width="850" />
 </p>
 
 

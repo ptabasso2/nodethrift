@@ -208,12 +208,50 @@ This means that the communication takes place and works as expected. You may wan
 
 After having run the client several times and after 20/30 seconds, we can check that our services are being instrumented and that the details are reflected in this trace flamegraph. 
 
+
 <p align="left">
   <img src="img/nodethrift2.png" width="650" />
 </p>
 
 </br>
 
+What we actually see above is our two services producing spans that are stitched together. That is the result of the context being propagated from the client to the server. The yellow spans are those of the client and the context of the lower spans are being carried out through the rpc calls and are retried on the server end. The spans generated on the server side then becoming child spans.
+
+This process implies changing the signature of the of the original methods so that for each method invocation we add an argument that contains the "carrier" that contains the span context to be accessed.
+
+
+
+Here is the method before the change 
+
+````javascript
+
+  client.getStruct(1, function(err, message){
+    console.log('Check log: ' + message.value);
+
+    //close the connection once we're done
+    connection.end();  
+  });
+````
+
+
+Here is the method after the change
+
+````javascript
+  const structCarrier = {};
+  tracer.inject(structSpan, opentracing.FORMAT_TEXT_MAP, structCarrier);
+
+  client.getStruct(1, structCarrier, function(err, message){
+    console.log('Check log: ' + message.value);
+
+    //close the connection once we're done
+    connection.end();
+
+    // End all spans when the connection is closed
+    calcSpan.finish();
+    structSpan.finish();
+    span.finish();
+  });
+````
 
 
 Besides we can also visualize the topology representation of this call

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "dd-trace": "^3.14.1",
+    "opentracing": "^0.14.7",
+    "thrift": "^0.18.1"
+  }
+}

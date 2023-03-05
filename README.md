@@ -17,7 +17,7 @@ The sections of this tutorial are structured as follows
 * Directory structure of the [project](#project)
 * Overview of the [application](#app)
 * Building, running and testing the application [locally](#local).
-* Viewing and validating the results [load](#load) 
+* Viewing and validating the [results](#load) 
 * End
 
 In each section, we'll describe the required steps to take in order to reach the goal.
@@ -204,7 +204,7 @@ getStruct( 1 )
 This means that the communication takes place and works as expected. You may want to run the command a few times to generate a bit of load.
 
 
-## Viewing and validating the results 
+## Viewing and validating <a name="load"></a> the results 
 
 After having run the client several times and after 20/30 seconds, we can check that our services are being instrumented and that the details are reflected in this trace flamegraph. 
 

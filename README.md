@@ -134,7 +134,7 @@ Status: Downloaded newer image for gcr.io/datadoghq/agent:latest-jmx
 ````
 
 
-## Configuring <a name="env"></a> the application environment.
+## Configuring <a name="env"></a> the application environment
 
 In order to instrument our services, we will also need to use the node.js tracing library (`dd-trace-js`). 
 
@@ -145,7 +145,7 @@ To install the node.js tracing library, we will add it by using npm `npm install
 Lastly, we will add the `thrift` package as this will be used to handle the communication operations between the client and the server. 
 
 
-## Building, running and testing <a name="local"></a> the application locally.
+## Building, running and testing <a name="local"></a> the application locally
 
 **Build step (optional)**
 

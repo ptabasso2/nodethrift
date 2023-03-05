@@ -57,7 +57,7 @@ The original code used in this tutorial is based on the official Apache code exa
 ## Directory structure of the <a name="project"></a>project
 
 
-The example below is the structure after having clone the project.
+The example below is the structure after having cloned the project.
 
 ```shell
 [root@pt-instance-2:~/nodethrift]$ tree -L 2
@@ -140,7 +140,7 @@ In order to instrument our services, we will also need to use the node.js tracin
 
 For more details you may want to check the following repository [dd-trace-js](https://github.com/DataDog/dd-trace-js)
  
-To install the node.js tracing library, we will add it by using npm `npm install dd-trace`. The opentracing api will also be used together with `dd-trace` therefore the corresponding package (`opentracing`) will need to be added as well. 
+To install the node.js tracing library, we will add it by using npm (`npm install dd-trace`). The opentracing api will also be used together with `dd-trace` therefore the corresponding package (`opentracing`) will need to be added as well. 
 
 Lastly, we will add the `thrift` package as this will be used to handle the communication operations between the client and the server. 
 
@@ -158,7 +158,7 @@ The build step essentially consists of running the following commands that call 
 [root@pt-instance-2:~/nodethrift]$ thrift -r --gen js:node sharedtracing.thrift 
 ````
 
-This will create the `gen-nodejs/` and add four new files as per the what has been defined in the contract files.
+This will create the `gen-nodejs/` and add four new files as per what has been defined in the contract files.
 
 ````shell
 ├── gen-nodejs
@@ -182,7 +182,7 @@ We can now move on and launch the server component.
 Open an another shell and run now the client:
 
 ````shell
-[root@pt-instance-2:~/thrift]$ node clienttracing.js
+[root@pt-instance-2:~/nodethrift]$ node clienttracing.js
 ping()
 InvalidOperation InvalidOperation: InvalidOperation
 15-10=5
@@ -193,7 +193,7 @@ Check log: 5
 After the sequence of calls, you should be able to see the following output on the server side
 
 ````shell
-[root@pt-instance-2:~/thrift]$ node servertracing.js
+[root@pt-instance-2:~/nodethrift]$ node servertracing.js
 ping()
 calculate( 1 , { num1: 1, num2: 0, op: 4, comment: null } )
 calculate( 1 , { num1: 15, num2: 10, op: 2, comment: null } )
